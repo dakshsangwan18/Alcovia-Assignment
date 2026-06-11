@@ -7,24 +7,28 @@ import DevPanel from "./src/features/dev/DevPanel";
 
 type Tab = "focus" | "syllabus" | "dev";
 
-function TabBar({ tab, setTab }: { tab: Tab; setTab: (t: Tab) => void }) {
-  const tabs: { key: Tab; label: string }[] = [
-    { key: "focus", label: "Focus" },
-    { key: "syllabus", label: "Syllabus" },
-    { key: "dev", label: "Dev" },
-  ];
+const TABS: { key: Tab; label: string; icon: string }[] = [
+  { key: "focus", label: "Focus", icon: "🎯" },
+  { key: "syllabus", label: "Syllabus", icon: "📚" },
+  { key: "dev", label: "Dev", icon: "⚙️" },
+];
 
+function TabBar({ tab, setTab }: { tab: Tab; setTab: (t: Tab) => void }) {
   return (
     <View style={tb.container}>
-      {tabs.map((t) => (
-        <TouchableOpacity
-          key={t.key}
-          style={[tb.tab, tab === t.key && tb.active]}
-          onPress={() => setTab(t.key)}
-        >
-          <Text style={[tb.text, tab === t.key && tb.textActive]}>{t.label}</Text>
-        </TouchableOpacity>
-      ))}
+      <View style={tb.inner}>
+        {TABS.map((t) => (
+          <TouchableOpacity
+            key={t.key}
+            style={[tb.tab, tab === t.key && tb.active]}
+            onPress={() => setTab(t.key)}
+            activeOpacity={0.7}
+          >
+            <Text style={[tb.icon, tab === t.key && tb.iconActive]}>{t.icon}</Text>
+            <Text style={[tb.text, tab === t.key && tb.textActive]}>{t.label}</Text>
+          </TouchableOpacity>
+        ))}
+      </View>
     </View>
   );
 }
@@ -47,27 +51,60 @@ export default function App() {
 }
 
 const s = StyleSheet.create({
-  container: { flex: 1, backgroundColor: "#fff" },
-  content: { flex: 1 },
+  container: {
+    flex: 1,
+    backgroundColor: "#f8fafc",
+  },
+  content: {
+    flex: 1,
+  },
 });
 
 const tb = StyleSheet.create({
   container: {
-    flexDirection: "row",
-    paddingTop: 48,
-    paddingBottom: 12,
-    paddingHorizontal: 16,
     backgroundColor: "#fff",
     borderBottomWidth: 1,
     borderBottomColor: "#e2e8f0",
+    paddingTop: 48,
+    paddingBottom: 8,
+    paddingHorizontal: 16,
+  },
+  inner: {
+    flexDirection: "row",
+    backgroundColor: "#f1f5f9",
+    borderRadius: 12,
+    padding: 4,
   },
   tab: {
     flex: 1,
     paddingVertical: 10,
     alignItems: "center",
-    borderRadius: 8,
+    borderRadius: 10,
+    flexDirection: "row",
+    justifyContent: "center",
+    gap: 6,
   },
-  active: { backgroundColor: "#eff6ff" },
-  text: { fontSize: 14, fontWeight: "600", color: "#94a3b8" },
-  textActive: { color: "#3b82f6" },
+  active: {
+    backgroundColor: "#fff",
+    shadowColor: "#000",
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 4,
+    elevation: 2,
+  },
+  icon: {
+    fontSize: 16,
+    opacity: 0.6,
+  },
+  iconActive: {
+    opacity: 1,
+  },
+  text: {
+    fontSize: 13,
+    fontWeight: "600",
+    color: "#94a3b8",
+  },
+  textActive: {
+    color: "#3b82f6",
+  },
 });
