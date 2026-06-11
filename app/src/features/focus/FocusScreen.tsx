@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useFocusSession } from "./useFocusSession";
 
-const PRESETS = [1, 25, 45, 60, 90];
+const PRESETS = [0.5, 1, 25, 45, 60, 90];
 
 export default function FocusScreen() {
   const { session, stats, start, giveUp } = useFocusSession();
@@ -28,7 +28,7 @@ export default function FocusScreen() {
               onPress={() => setSelected(m)}
             >
               <Text style={[s.presetText, selected === m && s.presetTextActive]}>
-                {m}m
+                {m < 1 ? `${m * 60}s` : `${m}m`}
               </Text>
             </TouchableOpacity>
           ))}
