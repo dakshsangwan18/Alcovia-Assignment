@@ -25,12 +25,12 @@ export default function FocusScreen() {
         </View>
         <View style={s.statDivider} />
         <View style={s.statItem}>
-          <Text style={s.statValue}>{stats.coins}</Text>
+          <Text style={s.statValue}>{Math.round(stats.coins)}</Text>
           <Text style={s.statLabel}>Coins</Text>
         </View>
         <View style={s.statDivider} />
         <View style={s.statItem}>
-          <Text style={s.statValue}>{stats.todayFocusMinutes}</Text>
+          <Text style={s.statValue}>{Math.round(stats.todayFocusMinutes)}</Text>
           <Text style={s.statLabel}>Today (min)</Text>
         </View>
       </View>
@@ -132,10 +132,12 @@ const s = StyleSheet.create({
     flex: 1,
   },
   statValue: {
-    fontSize: 24,
+    fontSize: 22,
     fontWeight: "700",
     color: "#1e293b",
     fontVariant: ["tabular-nums"],
+    maxWidth: 80,
+    textAlign: "center",
   },
   statLabel: {
     fontSize: 12,

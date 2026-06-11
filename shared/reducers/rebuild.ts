@@ -62,7 +62,7 @@ export function computeStats(sessions: Map<string, FocusSession>): StudentStats 
     else break;
   }
 
-  return { focusStreak: streak, coins, todayFocusMinutes: todayMins, totalSuccessfulSessions: success.length };
+  return { focusStreak: streak, coins, todayFocusMinutes: Math.round(todayMins * 10) / 10, totalSuccessfulSessions: success.length };
 }
 
 export function computeProgress(tasksMap: Map<string, Task>): SubjectProgress[] {
