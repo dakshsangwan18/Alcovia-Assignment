@@ -28,29 +28,33 @@
           "combinator": "and"
         }
       },
-      "id": "i", "name": "New?", "type": "n8n-nodes-base.if", "typeVersion": 2,
+      "id": "f", "name": "New?", "type": "n8n-nodes-base.if", "typeVersion": 2,
       "position": [750, 300]
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForAllItems",
+        "language": "javascript",
+        "jsCode": "const wf = $('Webhook').first().json;\nreturn {\n  json: {\n    sessionId: wf.sessionId,\n    studentId: wf.studentId,\n    message: 'Streak now ' + wf.streak + ' days, +' + wf.coins + ' coins'\n  }\n};"
+      },
+      "id": "m", "name": "Build Body", "type": "n8n-nodes-base.code", "typeVersion": 2,
+      "position": [1000, 300]
     },
     {
       "parameters": {
         "method": "POST",
         "url": "http://localhost:3001/api/notification-log",
         "sendBody": true,
-        "bodyParameters": {
-          "parameters": [
-            { "name": "sessionId", "value": "={{ $('Webhook').first().json.sessionId }}" },
-            { "name": "studentId", "value": "={{ $('Webhook').first().json.studentId }}" },
-            { "name": "message", "value": "={{ 'Streak now ' + $('Webhook').first().json.streak + ' days, +' + $('Webhook').first().json.coins + ' coins' }}" }
-          ]
-        }
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json) }}"
       },
       "id": "l", "name": "Log", "type": "n8n-nodes-base.httpRequest", "typeVersion": 4,
-      "position": [1000, 300]
+      "position": [1250, 300]
     },
     {
       "parameters": {},
       "id": "s", "name": "Skip", "type": "n8n-nodes-base.noOp", "typeVersion": 1,
-      "position": [1000, 500]
+      "position": [1250, 500]
     }
   ],
   "connections": {
@@ -58,13 +62,14 @@
     "Dedup Check": { "main": [[{ "node": "New?", "type": "main", "index": 0 }]] },
     "New?": {
       "main": [
-        [{ "node": "Log", "type": "main", "index": 0 }],
+        [{ "node": "Build Body", "type": "main", "index": 0 }],
         [{ "node": "Skip", "type": "main", "index": 0 }]
       ]
-    }
+    },
+    "Build Body": { "main": [[{ "node": "Log", "type": "main", "index": 0 }]] }
   },
   "settings": { "executionOrder": "v1" },
-  "versionId": "6",
+  "versionId": "7",
   "id": "alcovia-focus-notification",
   "active": true
 }
