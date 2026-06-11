@@ -36,7 +36,7 @@ interface ContextValue {
   syncedOps: number;
   lamport: number;
   watermark: number;
-  syncNow: () => void;
+  syncNow: () => Promise<void>;
   setOnline: (v: boolean) => void;
   dispatch: (
     type: OperationType,
@@ -113,8 +113,17 @@ export function AppProvider({ children }: { children: ReactNode }) {
     if (mgrRef.current) mgrRef.current.setOnline(v);
   }, []);
 
-  const syncNow = useCallback(() => {
-    if (engineRef.current) engineRef.current.sync();
+  const syncNow = useCallback(async () => {
+    if (!engineRef.current) return;
+    const { getWatermark } = await import("../storage/metadata");
+    // Sync in a loop until watermark stops changing (convergence)
+    let prevWatermark = -1;
+    let watermark = await getWatermark();
+    while (watermark !== prevWatermark) {
+      prevWatermark = watermark;
+      await engineRef.current.sync();
+      watermark = await getWatermark();
+    }
   }, []);
 
   return (
