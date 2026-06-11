@@ -27,7 +27,8 @@ async function storeOp(
 }
 
 async function unsyncedOps(): Promise<StoredOp[]> {
-  return db.operations.where({ synced: false }).toArray();
+  const ops = await db.operations.toArray();
+  return ops.filter((o) => !o.synced);
 }
 
 async function allOps(): Promise<StoredOp[]> {
