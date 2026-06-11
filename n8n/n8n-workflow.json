@@ -33,14 +33,6 @@
     },
     {
       "parameters": {
-        "mode": "runOnceForAllItems",
-        "jsCode": "const wf = $items('Webhook', 0).json;\nreturn [{ json: { sessionId: wf.sessionId, studentId: wf.studentId, message: 'Streak now ' + wf.streak + ' days, +' + wf.coins + ' coins' } }];"
-      },
-      "id": "m", "name": "Build Body", "type": "n8n-nodes-base.code", "typeVersion": 2,
-      "position": [1000, 300]
-    },
-    {
-      "parameters": {
         "method": "POST",
         "url": "http://localhost:3001/api/notification-log",
         "sendHeaders": true,
@@ -50,15 +42,15 @@
           ]
         },
         "sendBody": true,
-        "jsonBody": "={{ JSON.stringify($json) }}"
+        "jsonBody": "={{ JSON.stringify({ sessionId: $('Webhook').item.json.sessionId, studentId: $('Webhook').item.json.studentId, message: 'Streak now ' + $('Webhook').item.json.streak + ' days, +' + $('Webhook').item.json.coins + ' coins' }) }}"
       },
       "id": "l", "name": "Log", "type": "n8n-nodes-base.httpRequest", "typeVersion": 4,
-      "position": [1250, 300]
+      "position": [1000, 300]
     },
     {
       "parameters": {},
       "id": "s", "name": "Skip", "type": "n8n-nodes-base.noOp", "typeVersion": 1,
-      "position": [1250, 500]
+      "position": [1000, 500]
     }
   ],
   "connections": {
@@ -66,14 +58,13 @@
     "Dedup Check": { "main": [[{ "node": "New?", "type": "main", "index": 0 }]] },
     "New?": {
       "main": [
-        [{ "node": "Build Body", "type": "main", "index": 0 }],
+        [{ "node": "Log", "type": "main", "index": 0 }],
         [{ "node": "Skip", "type": "main", "index": 0 }]
       ]
-    },
-    "Build Body": { "main": [[{ "node": "Log", "type": "main", "index": 0 }]] }
+    }
   },
   "settings": { "executionOrder": "v1" },
-  "versionId": "7",
+  "versionId": "8",
   "id": "alcovia-focus-notification",
   "active": true
 }
