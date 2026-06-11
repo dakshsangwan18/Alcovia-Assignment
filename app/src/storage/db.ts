@@ -1,5 +1,5 @@
 import Dexie, { type Table } from "dexie";
-import type { Operation } from "@shared/types";
+import type { Operation } from "../../shared/types";
 import { getClientId } from "../constants";
 
 interface StoredOp extends Operation {

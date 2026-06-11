@@ -1,5 +1,5 @@
 import { db, type StoredOp } from "./db";
-import type { Operation } from "@shared/types";
+import type { Operation } from "../../shared/types";
 
 function generateId(): string {
   return crypto.randomUUID();

@@ -1,7 +1,7 @@
 import { API, STUDENT } from "../constants";
 import { unsyncedOps, markSynced, hasOp } from "../storage/operations";
 import { getWatermark, setWatermark, updateClock } from "../storage/metadata";
-import type { Operation, SyncResponse } from "@shared/types";
+import type { Operation, SyncResponse } from "../../shared/types";
 import { clientId } from "../storage/db";
 
 type OnStateChange = () => Promise<void>;

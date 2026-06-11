@@ -9,7 +9,7 @@ import React, {
 } from "react";
 import { clientId } from "../storage/db";
 import { allOps } from "../storage/operations";
-import { rebuildState } from "@shared/reducers/rebuild";
+import { rebuildState } from "../../shared/reducers/rebuild";
 import { storeOp } from "../storage/operations";
 import { bumpClock } from "../storage/metadata";
 import { createSyncEngine } from "../sync/engine";
@@ -20,7 +20,7 @@ import type {
   StudentStats,
   SubjectProgress,
   OperationType,
-} from "@shared/types";
+} from "../../shared/types";
 
 interface AppState {
   sessions: Map<string, FocusSession>;

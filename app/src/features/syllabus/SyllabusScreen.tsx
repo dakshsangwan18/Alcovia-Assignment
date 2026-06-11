@@ -1,8 +1,8 @@
 import React, { useMemo, useState } from "react";
 import { View, Text, TouchableOpacity, StyleSheet, ScrollView } from "react-native";
 import { useApp } from "../../context/AppContext";
-import { computeProgress } from "@shared/reducers/rebuild";
-import type { Task } from "@shared/types";
+import { computeProgress } from "../../../shared/reducers/rebuild";
+import type { Task } from "../../../shared/types";
 
 export default function SyllabusScreen() {
   const { state, dispatch } = useApp();

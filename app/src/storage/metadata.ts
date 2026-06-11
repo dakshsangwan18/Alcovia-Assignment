@@ -1,5 +1,5 @@
 import { db } from "./db";
-import type { ActiveSessionMetadata } from "@shared/types";
+import type { ActiveSessionMetadata } from "../../shared/types";
 
 async function getMeta<T = unknown>(key: string): Promise<T | undefined> {
   const entry = await db.metadata.get(key);
