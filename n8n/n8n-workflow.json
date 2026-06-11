@@ -34,7 +34,6 @@
     {
       "parameters": {
         "mode": "runOnceForAllItems",
-        "language": "javascript",
         "jsCode": "const wf = $('Webhook').first().json;\nreturn {\n  json: {\n    sessionId: wf.sessionId,\n    studentId: wf.studentId,\n    message: 'Streak now ' + wf.streak + ' days, +' + wf.coins + ' coins'\n  }\n};"
       },
       "id": "m", "name": "Build Body", "type": "n8n-nodes-base.code", "typeVersion": 2,
