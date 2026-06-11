@@ -6,3 +6,5 @@ web-build/
 .DS_Store
 state.json
 state.tmp.json
+n8n/*.pem
+data/
