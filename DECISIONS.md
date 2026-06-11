@@ -61,6 +61,12 @@ Sacrifice: edits on one device lost if another device deletes. For a study app w
 
 Notification delivery uses outbox pattern for at-least-once delivery. n8n dedup provides at-most-once processing. Combined: exactly-once notification delivery.
 
+## n8n Workflow Fix
+
+Problem: n8n 2.x expression `$('Webhook').first().json` returns null across the If branch, causing the Log node to send `null` fields and the server to reject with `400 Missing required fields`.
+
+Fix: Dedup check endpoint now accepts `studentId`, `streak`, and `coins` as query params and echoes them back. The n8n Dedup Check node passes these through the URL, and the Log node references `$json` (the Dedup Check response) instead of `$('Webhook')`. This avoids cross-branch node reference issues entirely.
+
 ## Focus Session Validation
 
 A session is rewarded only if the server computes its state via the shared reducer and confirms status === "success":

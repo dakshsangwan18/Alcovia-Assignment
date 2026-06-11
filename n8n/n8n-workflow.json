@@ -8,7 +8,7 @@
     },
     {
       "parameters": {
-        "url": "={{ 'http://localhost:3001/api/dedup-check?sessionId=' + $json.sessionId }}",
+        "url": "={{ 'http://localhost:3001/api/dedup-check?sessionId=' + $json.sessionId + '&studentId=' + $json.studentId + '&streak=' + $json.streak + '&coins=' + $json.coins }}",
         "method": "GET"
       },
       "id": "d", "name": "Dedup Check", "type": "n8n-nodes-base.httpRequest", "typeVersion": 4,
@@ -42,7 +42,7 @@
           ]
         },
         "sendBody": true,
-        "jsonBody": "={{ JSON.stringify({ sessionId: $('Webhook').item.json.sessionId, studentId: $('Webhook').item.json.studentId, message: 'Streak now ' + $('Webhook').item.json.streak + ' days, +' + $('Webhook').item.json.coins + ' coins' }) }}"
+        "jsonBody": "={{ JSON.stringify({ sessionId: $json.sessionId, studentId: $json.studentId, message: 'Streak now ' + $json.streak + ' days, +' + $json.coins + ' coins' }) }}"
       },
       "id": "l", "name": "Log", "type": "n8n-nodes-base.httpRequest", "typeVersion": 4,
       "position": [1000, 300]
@@ -64,7 +64,7 @@
     }
   },
   "settings": { "executionOrder": "v1" },
-  "versionId": "8",
+  "versionId": "9",
   "id": "alcovia-focus-notification",
   "active": true
 }
