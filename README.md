@@ -35,15 +35,12 @@ Open these in your browser:
 ### 3. n8n
 
 ```bash
-# One-time TLS cert setup (requires brew)
-brew install mkcert nss
-mkcert -install
-
-# Start n8n with TLS
-bash scripts/start-n8n.sh
+bash scripts/start-n8n-dev.sh
 ```
 
-Open https://localhost:5678. Import `n8n/n8n-workflow.json`. Activate the workflow.
+Open http://localhost:5678. Import `n8n/n8n-workflow.json`. Activate the workflow.
+
+For TLS in production: `bash scripts/start-n8n.sh` (requires `brew install mkcert nss && mkcert -install`).
 
 ## Architecture
 
