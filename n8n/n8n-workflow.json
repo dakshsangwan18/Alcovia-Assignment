@@ -8,7 +8,7 @@
     },
     {
       "parameters": {
-        "url": "= 'http://localhost:3001/api/dedup-check?sessionId=' + $json.sessionId",
+        "url": "={{ 'http://localhost:3001/api/dedup-check?sessionId=' + $json.sessionId }}",
         "method": "GET"
       },
       "id": "d", "name": "Dedup Check", "type": "n8n-nodes-base.httpRequest", "typeVersion": 4,
@@ -38,9 +38,9 @@
         "sendBody": true,
         "bodyParameters": {
           "parameters": [
-            { "name": "sessionId", "value": "={{ $('Webhook').item.json.sessionId }}" },
-            { "name": "studentId", "value": "={{ $('Webhook').item.json.studentId }}" },
-            { "name": "message", "value": "= 'Streak now ' + $('Webhook').item.json.streak + ' days, +' + $('Webhook').item.json.coins + ' coins'" }
+            { "name": "sessionId", "value": "={{ $('Webhook').first().json.sessionId }}" },
+            { "name": "studentId", "value": "={{ $('Webhook').first().json.studentId }}" },
+            { "name": "message", "value": "={{ 'Streak now ' + $('Webhook').first().json.streak + ' days, +' + $('Webhook').first().json.coins + ' coins' }}" }
           ]
         }
       },
